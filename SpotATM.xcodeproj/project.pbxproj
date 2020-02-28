@@ -14,6 +14,9 @@
 		5014B8812408E74200480D62 /* SpotATM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5014B87F2408E74200480D62 /* SpotATM.xcdatamodeld */; };
 		5014B8832408E74400480D62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5014B8822408E74400480D62 /* Assets.xcassets */; };
 		5014B8862408E74400480D62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5014B8842408E74400480D62 /* LaunchScreen.storyboard */; };
+		5014B8902409014C00480D62 /* Partner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5014B88F2409014C00480D62 /* Partner.swift */; };
+		5014B8922409023100480D62 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5014B8912409023100480D62 /* Networking.swift */; };
+		5014B89424091A1E00480D62 /* AnnotationPartner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5014B89324091A1E00480D62 /* AnnotationPartner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		5014B8822408E74400480D62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5014B8852408E74400480D62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5014B8872408E74400480D62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5014B88F2409014C00480D62 /* Partner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partner.swift; sourceTree = "<group>"; };
+		5014B8912409023100480D62 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		5014B89324091A1E00480D62 /* AnnotationPartner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationPartner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +64,35 @@
 		5014B8752408E74200480D62 /* SpotATM */ = {
 			isa = PBXGroup;
 			children = (
-				5014B8762408E74200480D62 /* AppDelegate.swift */,
-				5014B8782408E74200480D62 /* SceneDelegate.swift */,
+				5014B88E2409013D00480D62 /* Model */,
+				5014B88D2408EBE400480D62 /* Supporting Files */,
 				5014B87A2408E74200480D62 /* ViewController.swift */,
 				5014B87C2408E74200480D62 /* Main.storyboard */,
-				5014B8822408E74400480D62 /* Assets.xcassets */,
-				5014B8842408E74400480D62 /* LaunchScreen.storyboard */,
 				5014B8872408E74400480D62 /* Info.plist */,
 				5014B87F2408E74200480D62 /* SpotATM.xcdatamodeld */,
+				5014B8912409023100480D62 /* Networking.swift */,
 			);
 			path = SpotATM;
+			sourceTree = "<group>";
+		};
+		5014B88D2408EBE400480D62 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5014B8762408E74200480D62 /* AppDelegate.swift */,
+				5014B8782408E74200480D62 /* SceneDelegate.swift */,
+				5014B8822408E74400480D62 /* Assets.xcassets */,
+				5014B8842408E74400480D62 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5014B88E2409013D00480D62 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5014B88F2409014C00480D62 /* Partner.swift */,
+				5014B89324091A1E00480D62 /* AnnotationPartner.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +168,9 @@
 			files = (
 				5014B8812408E74200480D62 /* SpotATM.xcdatamodeld in Sources */,
 				5014B87B2408E74200480D62 /* ViewController.swift in Sources */,
+				5014B89424091A1E00480D62 /* AnnotationPartner.swift in Sources */,
+				5014B8902409014C00480D62 /* Partner.swift in Sources */,
+				5014B8922409023100480D62 /* Networking.swift in Sources */,
 				5014B8772408E74200480D62 /* AppDelegate.swift in Sources */,
 				5014B8792408E74200480D62 /* SceneDelegate.swift in Sources */,
 			);

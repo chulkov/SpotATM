@@ -6,4 +6,11 @@
 //  Copyright © 2020 chulkov. All rights reserved.
 //
 
-import Foundation
+//import Foundation
+//import MapKit
+//
+//class AnnotationPartner: NSObject, MKAnnotation{
+//    var coordinate: CLLocationCoordinate2D
+//    
+//    
+//}
