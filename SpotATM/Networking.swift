@@ -14,94 +14,72 @@ enum HandlingError: Error{
     case canNotProcessData
 }
 
-struct Networking {
-
+class Networking {
+    var dataTask: URLSessionDataTask?
     let baseURL = "https://api.tinkoff.ru/v1/"
+    let defaultSession = URLSession(configuration: .default)
     
-    func getPartners(latitude: Double, longitude: Double, radius: Int, compleation: @escaping(Result<Partner, HandlingError>) ->Void){
+    
+    func getPartners(latitude: Double, longitude: Double, radius: Int, compleation: @escaping(Result<Data, Error>) ->Void){
+        dataTask?.cancel()
         
-        let destinationURL = baseURL + "deposition_points?latitude=\(latitude)&longitude=\(longitude)&radius=\(radius)"
-        let urlString = destinationURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        guard let resourceURL = URL(string: urlString!) else {fatalError()}
-        print("\(resourceURL)")
-        
-        let dataTask = URLSession.shared.dataTask(with: resourceURL) { data, _, _ in
-            
-            guard let jsonData = data else {
-                compleation(.failure(.noDataAvailable))
-                return
-            }
-
-            do{
-                let decoder = JSONDecoder()
-                let jobs = try decoder.decode(Partner.self, from: jsonData)
-                compleation(.success(jobs))
-            }catch{
-                print(error)
-               // compleation(.failure(.canNotProcessData))
-            }
-            
+        if radius > 20000{
+            return
         }
-        dataTask.resume()
-    }
-    func getJobs(compleation: @escaping(Result<Partner, HandlingError>) ->Void) {
+        //let destinationURL = baseURL + "deposition_points?latitude=\(latitude)&longitude=\(longitude)&radius=\(radius)"
         
-        let destinationURL = baseURL + "vacancies"
-        let urlString = destinationURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        guard let resourceURL = URL(string: urlString!) else {fatalError()}
-        //self.resourceURL = resourceURL
-        print("\(resourceURL)")
-        
-        
-        
-        let dataTask = URLSession.shared.dataTask(with: resourceURL) { data, response, error in
-            //print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
-            guard let jsonData = data else {
-                compleation(.failure(.noDataAvailable))
+        if var urlComponents = URLComponents(string: "\(baseURL)deposition_points") {
+            urlComponents.query = "latitude=\(latitude)&longitude=\(longitude)&radius=\(radius)"
+            
+            guard let url = urlComponents.url else {
                 return
             }
             
-            do{
-                let decoder = JSONDecoder()
-                let jobs = try decoder.decode(Partner.self, from: jsonData)
-                compleation(.success(jobs))
-            }catch{
-                print(error.localizedDescription)
-            }
             
+            //let urlString = urlComponents.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            
+            //        guard let resourceURL = URL(string: urlString!) else {fatalError()}
+                    print("\(urlComponents)")
+            //
+            //        let dataTask = URLSession.shared.dataTask(with: resourceURL) { data, _, error in
+            //
+            //            guard let jsonData = data else {
+            //                print(error.debugDescription)
+            //                return
+            //            }
+            //
+            //            do{
+            //                //let decoder = JSONDecoder()
+            //                //let jobs = try decoder.decode(PartnerModel.self, from: jsonData)
+            //                compleation(.success(jsonData))
+            //            }catch{
+            //                print(error)
+            //               // compleation(.failure(.canNotProcessData))
+            //            }
+            //
+            //        }
+            
+            dataTask = defaultSession.dataTask(with: url) { [weak self] data, response, error in
+                defer {
+                    self?.dataTask = nil
+                }
+                
+                // 5
+                if let error = error {
+                    print("DataTask error: " + error.localizedDescription + "\n")
+                } else if
+                    let data = data,
+                    let response = response as? HTTPURLResponse,
+                    response.statusCode == 200 {
+                    
+                    
+                    // 6
+                    DispatchQueue.main.async {
+                        compleation(.success(data))
+                    }
+                }
+            }
+            dataTask?.resume()
         }
-        dataTask.resume()
     }
-
-    
-    func getVacancy(vacancyId:String, compleation: @escaping(Result<Partner, HandlingError>) ->Void) {
-        
-        let destinationURL = baseURL + "vacancies/\(vacancyId)"
-        let urlString = destinationURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        guard let resourceURL = URL(string: urlString!) else {fatalError()}
-        //self.resourceURL = resourceURL
-        print("\(resourceURL)")
-        
-
-        let dataTask = URLSession.shared.dataTask(with: resourceURL) { data, _, _ in
-            
-            guard let jsonData = data else {
-                compleation(.failure(.noDataAvailable))
-                return
-            }
-            
-            do{
-                let decoder = JSONDecoder()
-                let jobs = try decoder.decode(Partner.self, from: jsonData)
-                compleation(.success(jobs))
-            }catch{
-                print(error.localizedDescription)
-                compleation(.failure(.canNotProcessData))
-            }
-            
-        }
-        dataTask.resume()
-    }
-    
-    
 }
