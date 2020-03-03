@@ -33,8 +33,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     var partners: [Partner] = []
     var asyncFetchRequest: NSAsynchronousFetchRequest<Partner>?
     var isFirstLoad = true
+    
+    var existingStorePoints: [StorePoint] = []
     //MARK: ViewDidLoad
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +59,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.showsUserLocation = true
         
         //////////////////////
-//        importJSONDataToCoreData()
-//        fetchDataToMapView()
+        //        importJSONDataToCoreData()
+        //        fetchDataToMapView()
         
     }
     
@@ -71,8 +73,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             //showPins()
         }
     }
-
-
+    
+    
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         print("regionDidChangeAnimated")
@@ -81,30 +83,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             importJSONDataToCoreData()
         }
         importJSONDataToCoreData()
-       
+        
     }
-    // MARK: - CLLocationManagerDelegate
-    
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        defer { currentLocation = locations.last }
-//        print("didUpdateLocations")
-//        if currentLocation == nil {
-//            // Zoom to user location
-//            if let userLocation = locations.last {
-//                let viewRegion = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
-//                mapView.setRegion(viewRegion, animated: false)
-//
-//            }
-//        }
-//
-//    }
     
     
     
     fileprivate func fetchDataToMapView() {
         let partnerFetchRequest: NSFetchRequest<Partner> = Partner.fetchRequest()
         fetchRequest = partnerFetchRequest
-        
         asyncFetchRequest = NSAsynchronousFetchRequest<Partner>(fetchRequest: partnerFetchRequest) {
             [unowned self] (result: NSAsynchronousFetchResult) in
             guard let partners = result.finalResult else {
@@ -128,17 +114,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func addAnnotations(){
         // TODO: check for duplicates(?)
-        if mapView.annotations.count < partners.count{
-            for partner in partners{
-                let CLLCoordType = CLLocationCoordinate2D(latitude: partner.latitude, longitude: partner.longitude)
-                let anno = MKPointAnnotation();
-                anno.coordinate = CLLCoordType;
-                anno.title = partner.name
-                mapView.addAnnotation(anno);
+        //if mapView.annotations.count < partners.count{
+        for partner in partners{
+            for storePoint in partner.storePoints!{//not safe
+                
+                if !existingStorePoints.contains(storePoint as! StorePoint){
+                    existingStorePoints.append(storePoint as! StorePoint)
+                    print("adding annotation")
+                    let CLLCoordType = CLLocationCoordinate2D(latitude: (storePoint as! StorePoint).latitude, longitude: (storePoint as! StorePoint).longitude)
+                    let anno = MKPointAnnotation();
+                    anno.coordinate = CLLCoordType;
+                    anno.title = partner.name
+                    
+                    
+                    mapView.addAnnotation(anno);
+                }
             }
         }
-        
-       // mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
     
@@ -185,43 +177,49 @@ extension MKMapView {
 // MARK - Data loading
 extension ViewController {
     func importJSONDataToCoreData(){
-        Networking().getPartners(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude, radius: mapView.currentRadius() ) { result in
-            switch result {
-            case .failure(let error):
-                print("URLError: \(error)")
-            case .success(let jsonData):
-                print("URLSuccess")
-                let jsonDict = try! JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments]) as! [String: Any]
-
-                let jsonArray = jsonDict["payload"] as! [[String: Any]]
-                for jsonDictionary in jsonArray {
-
-                    let id = jsonDictionary["externalId"] as? String
-                    let name = jsonDictionary["partnerName"] as? String
-
-                    let location = jsonDictionary["location"] as! [String: Double]
-                    let latitude = location["latitude"]
-                    let longitude = location["longitude"]
-
-                    let workHours = jsonDictionary["workHours"] as? String
-                    let phones = jsonDictionary["phones"] as? String
-                    let fullAddress = jsonDictionary["fullAddress"] as? String
-
-
-
-                    let partner = Partner(context: self.coreDataStack.managedContext)
-                    partner.id = id
-                    partner.name = name
-                    partner.latitude = latitude ?? 0.0
-                    partner.longitude = longitude ?? 0.0
-                    partner.workHours = workHours
-                    partner.phones = phones
-                    partner.fullAddress = fullAddress
-                }
-
-                self.coreDataStack.saveContext()
-            }
-        }
+//                Networking().getPartners(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude, radius: mapView.currentRadius() ) { result in
+//                    switch result {
+//                    case .failure(let error):
+//                        print("URLError: \(error)")
+//                    case .success(let jsonData):
+//                        print("URLSuccess")
+//                        let jsonDict = try! JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments]) as! [String: Any]
+//
+//                        let jsonArray = jsonDict["payload"] as! [[String: Any]]
+//                        for jsonDictionary in jsonArray {
+//
+//                            let id = jsonDictionary["externalId"] as? String
+//                            let name = jsonDictionary["partnerName"] as? String
+//
+//                            let location = jsonDictionary["location"] as! [String: Double]
+//                            let latitude = location["latitude"]
+//                            let longitude = location["longitude"]
+//
+//                            let workHours = jsonDictionary["workHours"] as? String
+//                            let phones = jsonDictionary["phones"] as? String
+//                            let fullAddress = jsonDictionary["fullAddress"] as? String
+//
+//
+//
+//                            let storePoint = StorePoint(context: self.coreDataStack.managedContext)
+//                            storePoint.id = id
+//                            storePoint.latitude = latitude ?? 0.0
+//                            storePoint.longitude = longitude ?? 0.0
+//                            storePoint.workHours = workHours
+//                            storePoint.phones = phones
+//                            storePoint.fullAddress = fullAddress
+//
+//                            let partner = Partner(context: self.coreDataStack.managedContext)
+//                            partner.name = name
+//
+//                            partner.addToStorePoints(storePoint)
+//
+//
+//                        }
+//
+//                        self.coreDataStack.saveContext()
+//                    }
+//                }
         fetchDataToMapView()
     }
     

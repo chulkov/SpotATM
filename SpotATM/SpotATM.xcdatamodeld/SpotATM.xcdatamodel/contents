@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Partner" representedClassName="Partner" syncable="YES">
+    <entity name="Partner" representedClassName=".Partner" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="storePoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StorePoint" inverseName="partner" inverseEntity="StorePoint"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="name"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="StorePoint" representedClassName=".StorePoint" syncable="YES">
         <attribute name="addressInfo" optional="YES" attributeType="String"/>
         <attribute name="bankInfo" optional="YES" attributeType="String"/>
         <attribute name="fullAddress" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="phones" optional="YES" attributeType="String"/>
         <attribute name="workHours" optional="YES" attributeType="String"/>
+        <relationship name="partner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Partner" inverseName="storePoints" inverseEntity="Partner"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="id"/>
@@ -17,6 +26,7 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Partner" positionX="-36" positionY="9" width="128" height="178"/>
+        <element name="StorePoint" positionX="267.11328125" positionY="-52.16796875" width="128" height="178"/>
+        <element name="Partner" positionX="-36" positionY="72" width="128" height="73"/>
     </elements>
 </model>

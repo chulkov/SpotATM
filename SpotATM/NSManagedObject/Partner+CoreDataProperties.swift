@@ -2,7 +2,7 @@
 //  Partner+CoreDataProperties.swift
 //  SpotATM
 //
-//  Created by Max on 02/03/2020.
+//  Created by Max on 03/03/2020.
 //  Copyright © 2020 chulkov. All rights reserved.
 //
 //
@@ -17,14 +17,24 @@ extension Partner {
         return NSFetchRequest<Partner>(entityName: "Partner")
     }
 
-    @NSManaged public var id: String?
     @NSManaged public var name: String?
-    @NSManaged public var phones: String?
-    @NSManaged public var workHours: String?
-    @NSManaged public var longitude: Double
-    @NSManaged public var latitude: Double
-    @NSManaged public var addressInfo: String?
-    @NSManaged public var fullAddress: String?
-    @NSManaged public var bankInfo: String?
+    @NSManaged public var storePoints: NSSet?
+
+}
+
+// MARK: Generated accessors for storePoints
+extension Partner {
+
+    @objc(addStorePointsObject:)
+    @NSManaged public func addToStorePoints(_ value: StorePoint)
+
+    @objc(removeStorePointsObject:)
+    @NSManaged public func removeFromStorePoints(_ value: StorePoint)
+
+    @objc(addStorePoints:)
+    @NSManaged public func addToStorePoints(_ values: NSSet)
+
+    @objc(removeStorePoints:)
+    @NSManaged public func removeFromStorePoints(_ values: NSSet)
 
 }

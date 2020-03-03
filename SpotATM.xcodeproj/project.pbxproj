@@ -18,6 +18,8 @@
 		503ED3B0240D0C3C006C44A1 /* Partner+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ED3AE240D0C3C006C44A1 /* Partner+CoreDataClass.swift */; };
 		503ED3B1240D0C3C006C44A1 /* Partner+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ED3AF240D0C3C006C44A1 /* Partner+CoreDataProperties.swift */; };
 		503ED3B4240D156F006C44A1 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ED3B3240D156F006C44A1 /* CoreDataStack.swift */; };
+		5095977F240E3500007693D9 /* StorePoint+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095977D240E3500007693D9 /* StorePoint+CoreDataClass.swift */; };
+		50959780240E3500007693D9 /* StorePoint+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5095977E240E3500007693D9 /* StorePoint+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		503ED3AE240D0C3C006C44A1 /* Partner+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Partner+CoreDataClass.swift"; sourceTree = "<group>"; };
 		503ED3AF240D0C3C006C44A1 /* Partner+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Partner+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		503ED3B3240D156F006C44A1 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		5095977D240E3500007693D9 /* StorePoint+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorePoint+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5095977E240E3500007693D9 /* StorePoint+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorePoint+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 		503ED3AD240D0C15006C44A1 /* NSManagedObject */ = {
 			isa = PBXGroup;
 			children = (
+				5095977D240E3500007693D9 /* StorePoint+CoreDataClass.swift */,
+				5095977E240E3500007693D9 /* StorePoint+CoreDataProperties.swift */,
 				503ED3AE240D0C3C006C44A1 /* Partner+CoreDataClass.swift */,
 				503ED3AF240D0C3C006C44A1 /* Partner+CoreDataProperties.swift */,
 			);
@@ -181,9 +187,11 @@
 				5014B87B2408E74200480D62 /* ViewController.swift in Sources */,
 				503ED3B4240D156F006C44A1 /* CoreDataStack.swift in Sources */,
 				5014B8922409023100480D62 /* Networking.swift in Sources */,
+				5095977F240E3500007693D9 /* StorePoint+CoreDataClass.swift in Sources */,
 				503ED3B1240D0C3C006C44A1 /* Partner+CoreDataProperties.swift in Sources */,
 				5014B8772408E74200480D62 /* AppDelegate.swift in Sources */,
 				503ED3B0240D0C3C006C44A1 /* Partner+CoreDataClass.swift in Sources */,
+				50959780240E3500007693D9 /* StorePoint+CoreDataProperties.swift in Sources */,
 				5014B8792408E74200480D62 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
